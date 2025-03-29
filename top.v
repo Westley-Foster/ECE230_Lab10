@@ -7,7 +7,7 @@ module top(
 
        
      memory_system part2(
-        .data(sw[15:8]),
+        .dataIn(sw[15:8]),
         .addr(sw[7:6]),
         .store(btnC),
         .memory(led)
