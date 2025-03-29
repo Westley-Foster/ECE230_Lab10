@@ -27,8 +27,7 @@ module memory_system(
         );    
         
     genvar i; 
-    
-    
+   
     generate            
         for (i = 0; i < 4; i = i + 1) begin 
             byte_memory byte_blocks( 
@@ -42,13 +41,16 @@ module memory_system(
 
     endgenerate
     
-        multiplexer storeMux(
-        .sel(dRegisterOut),
-        .A(muxSelectOut[0]), 
-        .B(muxSelectOut[1]),
-        .C(muxSelectOut[2]), 
-        .D(muxSelectOut[3])
-        );  
+multiplexer storeMux(
+    .in0(dRegisterOut[0]), 
+    .in1(dRegisterOut[1]),
+    .in2(dRegisterOut[2]), 
+    .in3(dRegisterOut[3]),
+    .Sel(addr),  
+    .Enable(1'b1),
+    .MuxOut(memory)
+);  
+
     reg [3:0] byte_memory [3:0];
     
 endmodule

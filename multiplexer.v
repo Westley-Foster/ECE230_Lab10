@@ -1,13 +1,20 @@
 module multiplexer(
-    input [7:0] in0, in1, in2, in3, in4, in5, in6, in7,
+    input [7:0] in0, in1, in2, in3,
     input Enable,
     input [1:0] Sel,
-    output [7:0] MuxOut
+    output reg [7:0] MuxOut
 );
-    assign MuxOut = 
-    Enable ?
-    ((Sel == 2'b00) ? in1 : 
-    (Sel == 2'b01) ? in2 : 
-    (Sel == 2'b10) ? in3 : in4 ) : 0;
-     
+    always @(*) begin
+        if (Enable) begin
+            case(Sel)
+                2'b00: MuxOut = in0; 
+                2'b01: MuxOut = in1; 
+                2'b10: MuxOut = in2; 
+                2'b11: MuxOut = in3;
+                default: MuxOut = 8'b00000000;
+            endcase
+        end else begin
+            MuxOut = 8'b00000000;
+        end
+    end
 endmodule
